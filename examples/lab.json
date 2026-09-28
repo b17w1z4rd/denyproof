@@ -1,0 +1,83 @@
+{
+  "origin": "http://127.0.0.1:8080",
+  "identities": {
+    "alice": {
+      "token_env": "ALICE_TOKEN",
+      "probe": {
+        "path": "/me",
+        "pointer": "/user",
+        "equals": "alice"
+      }
+    },
+    "bob": {
+      "token_env": "BOB_TOKEN",
+      "probe": {
+        "path": "/me",
+        "pointer": "/user",
+        "equals": "bob"
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "leaky-200",
+      "owner": "alice",
+      "subject": "bob",
+      "path": "/leaky-200",
+      "proof": [
+        {
+          "pointer": "/invoice/canary",
+          "equals": "demo-alice-invoice-7b839f"
+        }
+      ]
+    },
+    {
+      "id": "leaky-403",
+      "owner": "alice",
+      "subject": "bob",
+      "path": "/leaky-403",
+      "proof": [
+        {
+          "pointer": "/invoice/canary",
+          "equals": "demo-alice-invoice-7b839f"
+        }
+      ]
+    },
+    {
+      "id": "secure",
+      "owner": "alice",
+      "subject": "bob",
+      "path": "/secure",
+      "proof": [
+        {
+          "pointer": "/invoice/canary",
+          "equals": "demo-alice-invoice-7b839f"
+        }
+      ]
+    },
+    {
+      "id": "login-page",
+      "owner": "alice",
+      "subject": "bob",
+      "path": "/login-page",
+      "proof": [
+        {
+          "pointer": "/invoice/canary",
+          "equals": "demo-alice-invoice-7b839f"
+        }
+      ]
+    },
+    {
+      "id": "redirect",
+      "owner": "alice",
+      "subject": "bob",
+      "path": "/redirect",
+      "proof": [
+        {
+          "pointer": "/invoice/canary",
+          "equals": "demo-alice-invoice-7b839f"
+        }
+      ]
+    }
+  ]
+}

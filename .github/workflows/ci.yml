@@ -1,0 +1,21 @@
+name: Tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install -e .
+      - run: python -m unittest discover -s tests -v
+      - name: Verify demo detects both planted leaks
+        run: |
+          python -m denyproof.cli demo --out reports/demo && exit 99 || test "$?" -eq 1
+          python -c 'import json; r=json.load(open("reports/demo/report.json")); assert r["summary"]["exposure"] == 2'
